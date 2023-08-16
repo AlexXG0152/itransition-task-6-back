@@ -8,4 +8,4 @@ tagsRouter.use(function (req, res, next) {
   next();
 });
 
-tagsRouter.get("/api/tags", getTags);
+tagsRouter.get("/api/messages/tags", getTags);

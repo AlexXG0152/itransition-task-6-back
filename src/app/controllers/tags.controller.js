@@ -1,10 +1,10 @@
 import Message from "../models/messages.model.js";
 
-export async function getTags() {
-  const { search } = req.query;
+export async function getTags(req, res) {
+  const query = req.query.q;
   try {
     const tags = await Message.distinct("tags", {
-      tags: { $regex: search, $options: "i" },
+      tags: { $regex: query, $options: "i" },
     });
     res.json(tags);
   } catch (error) {
