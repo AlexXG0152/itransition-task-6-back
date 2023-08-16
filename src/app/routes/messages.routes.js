@@ -1,9 +1,5 @@
 import { Router } from "express";
-import {
-  getMessagesByTags,
-  getMessages,
-  getMessageById,
-} from "../controllers/messages.controller.js";
+import { getMessagesByTags } from "../controllers/messages.controller.js";
 
 export const messagesRouter = Router();
 
@@ -12,8 +8,4 @@ messagesRouter.use(function (req, res, next) {
   next();
 });
 
-messagesRouter.get("/api/messages", getMessages);
-
 messagesRouter.post("/api/messages", getMessagesByTags);
-
-messagesRouter.get("/api/messages/:id", getMessageById);
