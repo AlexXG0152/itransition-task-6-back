@@ -11,7 +11,13 @@ export async function createMessage(message) {
 
 export async function getMessagesByTags(req, res) {
   try {
-    if (req.body.tags.length > 0) {
+    if (req.body.tags.length === 0) {
+      const messages = await Message.find({
+        $or: [{ tags: { $size: 0 } }, { tags: { $exists: false } }],
+      });
+
+      if (messages) res.status(200).json(messages);
+    } else if (req.body.tags.length > 0) {
       const messages = await Message.find({
         $or: [
           { tags: { $in: [...req.body.tags] } },
