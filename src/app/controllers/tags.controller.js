@@ -5,10 +5,11 @@ export async function getTags(req, res) {
   try {
     const tags = await Message.distinct("tags", {
       tags: { $regex: query, $options: "i" },
-    });
-    res.json(tags);
+    }).exec();
+    const filteredTags = tags.filter((i) => i.includes(query));
+    res.json(filteredTags);
   } catch (error) {
     console.error("Failed to fetch tags", error);
-    res.status(500).json({ error: "Failed to fetch tags" });
+    res.status(404).json({ error: "Failed to fetch tags" });
   }
 }

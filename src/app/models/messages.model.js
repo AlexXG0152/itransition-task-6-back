@@ -14,4 +14,6 @@ const Message = model(
   )
 );
 
+Message.collection.createIndex({ tags: 1 });
+
 export default Message;

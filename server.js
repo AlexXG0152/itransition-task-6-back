@@ -1,8 +1,7 @@
 import express, { json, urlencoded } from "express";
 import dotenv from "dotenv";
-import { v4 as uuidv4 } from "uuid";
 import { Server } from "http";
-import { Server as IOServer, Socket } from "socket.io";
+import { Server as IOServer } from "socket.io";
 import { router } from "./src/app/routes/index.js";
 import db from "./src/app/models/index.js";
 
@@ -32,10 +31,8 @@ const PORT = process.env.PORT || 3000;
 io.on("connection", (socket) => {
   console.log("User connected");
   io.emit("username", `${socket.id}`);
-  const userId = uuidv4();
 
   socket.on("message", async (message) => {
-    // io.emit("message", `${socket.id}:${message}`);
     io.emit("message", JSON.stringify({ socket: socket.id, message }));
     await createMessage(message);
   });
